@@ -1,0 +1,106 @@
+
+{% extends "layouts/default.html" %}
+
+{% block title %} World Stats {% endblock title %}
+
+{% block content %}
+
+  <div class="row">
+        <div class="col-md-12">
+            <div class="card card-transparent">
+                <div class="card-header">
+                    <h4 class="card-title text-center">
+                        Corona Virus
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-10 ml-auto mr-auto">
+                        <div class="mapcontainer">
+                            <div id="map-example" class="vmap" style="height: 400px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+
+  <div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title"> Corona Virus Details</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Countries Infected </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="basic-datatables" class="display table table-striped table-hover">
+              <thead>
+              <tr>
+                <th> Country  </th>
+                <th> Cases </th>
+                <th> Total Deaths </th>
+                <th> Total Recovered </th>
+              </tr>
+              </thead>
+              <tbod>
+                {% for corona in corona %}
+                  <tr>
+                  <th>{{ corona.country_name }}</th>
+                  <th>{{ corona.cases }}</th>
+                  <th> <button class="btn btn-danger btn-sm">{{ corona.deaths }}</button></th>
+                  <th><button class="btn btn-info btn-sm">{{ corona.total_recovered }}</button></th>
+                  </tr>
+                {% endfor %}
+              </tbod>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+		$('#map-example').vectorMap(
+		{
+			map: 'world_en',
+			backgroundColor: 'transparent',
+			borderColor: '#fff',
+			borderWidth: 2,
+			color: '#e4e4e4',
+			enableZoom: true,
+			hoverColor: '#ee7b67',
+			hoverOpacity: null,
+			normalizeFunction: 'linear',
+			scaleColors: ['#b6d6ff', '#005ace'],
+			selectedColor: '#FF0000',
+			selectedRegions: [
+          {% for country_names in country_names %}
+              '{{ country_names }}',
+          {% endfor %}
+            ],
+			showTooltip: true,
+			onRegionClick: function(element, code, region)
+			{
+				return false;
+			},
+			onResize: function (element, width, height) {
+				console.log('Map Size: ' +  width + 'x' +  height);
+			},
+		});
+
+		$(document).ready(function () {
+      $('#basic-datatables').DataTable({
+          "order": [[ 2, "desc" ]]
+			});
+    })
+	</script>
+
+{% endblock %}
