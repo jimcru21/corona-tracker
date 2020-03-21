@@ -19,7 +19,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django-dashboard-black-pro.herokuapp.com', 'simon-www.a9c227f995.at.d2c.io']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django-dashboard-black-pro.herokuapp.com', 'simon-www.a9c227f995.at.d2c.io', '0.0.0.0']
 
 # Application definition
 
