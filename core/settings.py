@@ -21,6 +21,7 @@ DEBUG = config('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django-dashboard-black-pro.herokuapp.com', 'mimi-www.a9c227f995.at.d2c.io', '0.0.0.0']
 
+
 # Application definition
 
 INSTALLED_APPS = [
