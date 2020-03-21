@@ -1,6 +1,6 @@
 from django.urls import path
-from corona import views
+from .views import index
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', index, name='index'),
 ]
