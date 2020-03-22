@@ -1,0 +1,71 @@
+
+{% extends "layouts/default.html" %}
+
+{% block title %}
+    Country Latest Stat
+{% endblock %}
+
+{% block content %}
+
+
+  <!-- Data Tables -->
+<div class="page-inner">
+  <div class="page-header">
+    <h4 class="page-title"> Corona Virus Details</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> {{ country_name.country }} </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="country_stat" class="display table table-striped table-hover">
+              <thead>
+              <tr>
+                <th> Date  </th>
+                <th> Total Cases</th>
+                <th> New Cases</th>
+                <th> Active Cases</th>
+                <th> Total Death</th>
+                <th> New Deaths</th>
+                <th> Total Recovered </th>
+                <th> Serious Critical</th>
+                <th> Total Cases Per 1M</th>
+              </tr>
+              </thead>
+              <tbod>
+                {% for c in country %}
+                  <tr>
+                  <td>{{ c.record_date }}</td>
+                  <td>{{ c.total_cases }}</td>
+                  <td>{{ c.new_cases }}</td>
+                  <td>{{ c.active_cases }}</td>
+                  <td><button class="btn btn-danger btn-sm">{{ c.total_deaths }}</button></td>
+                  <th><button class="btn btn-danger btn-sm">{{ c.new_deaths }}</button></th>
+                    <th><button class="btn btn-success btn-sm"> {{ c.total_recovered }}</button></th>
+                  <th> {{ c.serious_critical }}</th>
+                  <th>{{ c.total_cases_per1m }}</th>
+                  </tr>
+                {% endfor %}
+              </tbod>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+     $(document).ready(function () {
+        $('#country_stat').DataTable({
+            "order": [[ 0, "desc" ]]
+        });
+      });
+    </script>
+{% endblock %}

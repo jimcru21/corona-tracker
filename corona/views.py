@@ -35,3 +35,31 @@ def index(request):
         'country_names': country_names
     }
     return render(request, 'corona/index.html', context)
+
+
+def country_stat(request, pk):
+    api_url = '{0}worldstat.php'.format(api_url_base)
+    response = requests.get(api_url, headers=headers)
+    world_totals = response.json()
+
+    api_url = '{0}cases_by_particular_country.php'.format(api_url_base)
+    querystring = {"country": "{}".format(pk)}
+    response = requests.get(api_url, headers=headers, params=querystring)
+    corona = response.json()
+    country_stats = corona['stat_by_country']
+
+    api_url = '{0}latest_stat_by_country.php'.format(api_url_base)
+    querystring = {"country": "{}".format(pk)}
+    response = requests.get(api_url, headers=headers, params=querystring)
+    corona = response.json()
+    country_latest = corona['latest_stat_by_country']
+
+    context = {
+        'world_totals': world_totals,
+        'country_name': querystring,
+        'country': country_stats,
+    }
+
+    return render(request, 'corona/country_stat.html', context)
+
+
