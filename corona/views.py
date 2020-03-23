@@ -52,12 +52,13 @@ def country_stat(request, pk):
     querystring = {"country": "{}".format(pk)}
     response = requests.get(api_url, headers=headers, params=querystring)
     corona = response.json()
-    country_latest = corona['latest_stat_by_country']
+    country_stats1 = corona['latest_stat_by_country']
 
     context = {
         'world_totals': world_totals,
         'country_name': querystring,
         'country': country_stats,
+        'country_latest1': country_stats1,
     }
 
     return render(request, 'corona/country_stat.html', context)

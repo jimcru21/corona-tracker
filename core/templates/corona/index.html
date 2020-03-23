@@ -57,7 +57,7 @@
                     <th><button class="btn btn-warning btn-sm">{{ corona.cases }}</button></th>
                     <th><button class="btn btn-danger btn-sm">{{ corona.deaths }}</button></th>
                     <th><button class="btn btn-success btn-sm">{{ corona.total_recovered }}</button></th>
-                    <th><button class="btn {% if corona.new_cases != '0' %}btn-warning{% else %}btn-default{% endif %} btn-sm"> +{{ corona.new_cases }}</th>
+                    <th><button class="btn {% if corona.new_cases != '0' %}btn-warning{% else %}btn-default{% endif %} btn-sm"> +{{ corona.new_cases }}</button></th>
                     <th><button class="btn {% if corona.new_deaths != '0' %}btn-danger{% else %}btn-default{% endif %} btn-sm"> +{{ corona.new_deaths }}</button></th>
                     <th>{{ corona.serious_critical }}</th>
                     <th>{{ corona.active_cases }}</th>
