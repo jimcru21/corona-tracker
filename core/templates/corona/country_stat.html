@@ -16,23 +16,25 @@
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col-icon">
-            <div class="icon-big text-center icon-info bubble-shadow-small">
+            <div class="icon-big text-center icon-warning bubble-shadow-small">
               <i class="flaticon-users"></i>
             </div>
           </div>
           <div class="col col-stats ml-3 ml-sm-0">
             <div class="numbers">
-              <small>Total Cases</small>
-              <p class="card-category text-info">
+              <small>Serious Critical</small>
+              <p class="card-category text-warning">
                 <b>
                   {% for c in country_latest1 %}
-                  {{ c.total_cases }}
+                  {{ c.serious_critical }}
                 </b>
               </p>
               <small>Total Cases Per 1M</small>
-              <p class="card-category text-info">
+              <p class="card-category text-warning">
                 <b>
-                  {{ c.total_cases_per1m }}
+                  {% with cases=c.total_cases|slugify  %}
+                  {{ c.serious_critical|slugify|div:cases|mul:100|floatformat }}%
+                  {% endwith %}
                   {% endfor %}
                 </b>
               </p>
@@ -116,21 +118,21 @@
       <div class="card-body">
         <div class="row align-items-center">
           <div class="col-icon">
-            <div class="icon-big text-center icon-warning bubble-shadow-small">
+            <div class="icon-big text-center icon-info bubble-shadow-small">
               <i class="flaticon-users"></i>
             </div>
           </div>
           <div class="col col-stats ml-3 ml-sm-0">
             <div class="numbers">
               <small>Active Cases</small>
-              <p class="card-category text-warning">
+              <p class="card-category text-info">
                 <b>
                   {% for c in country_latest1 %}
                   {{ c.active_cases }}
                 </b>
               </p>
               <small>Active Percentage</small>
-              <p class="card-category text-warning">
+              <p class="card-category text-info">
                 <b>
                   {% with cases=c.total_cases|slugify  %}
                   {{ c.active_cases|slugify|div:cases|mul:100|floatformat }}%
