@@ -259,6 +259,23 @@
               {% endfor %}
           ]
 				}, {
+					label: "Total Active Cases",
+					borderColor: "#fc6203",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#fc6203",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [
+              {% for top in top20 %}
+                  {{ top.active_cases|slugify }},
+              {% endfor %}
+          ]
+				},{
 					label: "Total Recover",
 					borderColor: "#55CF38",
 					pointBorderColor: "#FFF",
