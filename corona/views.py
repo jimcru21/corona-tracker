@@ -18,13 +18,6 @@ def index(request):
     corona = response.json()
     country = corona['countries_stat']
 
-    country_names = []
-    for country in country:
-        country_name = country['country_name']
-        country_name = coco.convert(names=country_name, to='ISO2')
-
-        country_names.append(country_name)
-
     api_url = '{0}worldstat.php'.format(api_url_base)
     response = requests.get(api_url, headers=headers)
     world_totals = response.json()
@@ -32,7 +25,6 @@ def index(request):
     context = {
         'corona': corona['countries_stat'],
         'world_totals': world_totals,
-        'country_names': country_names
     }
     return render(request, 'corona/index.html', context)
 
@@ -62,5 +54,3 @@ def country_stat(request, pk):
     }
 
     return render(request, 'corona/country_stat.html', context)
-
-
