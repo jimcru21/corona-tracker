@@ -1,10 +1,163 @@
 
 {% extends "layouts/default.html" %}
+{% load mathfilters %}
+{% load tz %}
 
 {% block title %} World Stats {% endblock title %}
 
 {% block content %}
 
+
+  <!-- Heade Box -->
+<div class="page-inner">
+<div class="row">
+  <div class="col-sm-6 col-md-3">
+    <div class="card card-stats card-round">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-icon">
+            <div class="icon-big text-center icon-warning bubble-shadow-small">
+              <i class="flaticon-users"></i>
+            </div>
+          </div>
+          <div class="col col-stats ml-3 ml-sm-0">
+            <div class="numbers">
+              <small>Total Cases</small>
+              <p class="card-category text-warning">
+                <b>
+                  {{ world_totals.total_cases }}
+                </b>
+              </p>
+              <small>Last Time Update</small>
+              <p class="card-category text-warning">
+                <b>
+                  {{ world_totals.statistic_taken_at}}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <div class="card card-stats card-round">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-icon">
+            <div class="icon-big text-center icon-danger bubble-shadow-small">
+              <i class="flaticon-users"></i>
+            </div>
+          </div>
+          <div class="col col-stats ml-3 ml-sm-0">
+            <div class="numbers">
+              <small>Total Deaths</small>
+              <p class="card-category text-danger">
+                <b>
+                  {{ world_totals.total_deaths }}
+                </b>
+              </p>
+              <small>Deaths Percentage</small>
+              <p class="card-category text-danger">
+                <b>
+                  {% with cases=world_totals.total_cases|slugify  %}
+                    {{ world_totals.total_deaths|slugify|div:cases|mul:100|floatformat }}%
+                  {% endwith %}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <div class="card card-stats card-round">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-icon">
+            <div class="icon-big text-center icon-success bubble-shadow-small">
+              <i class="flaticon-users"></i>
+            </div>
+          </div>
+          <div class="col col-stats ml-3 ml-sm-0">
+            <div class="numbers">
+              <small>Total Recovered</small>
+              <p class="card-category text-success">
+                <b>
+                  {{ world_totals.total_recovered }}
+                </b>
+              </p>
+              <small>Recovery Percentage</small>
+              <p class="card-category text-success">
+                <b>
+                  {% with cases=world_totals.total_cases|slugify  %}
+                  {{ world_totals.total_recovered|slugify|div:cases|mul:100|floatformat }}%
+                  {% endwith %}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <div class="card card-stats card-round">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-icon">
+            <div class="icon-big text-center icon-info bubble-shadow-small">
+              <i class="flaticon-users"></i>
+            </div>
+          </div>
+          <div class="col col-stats ml-3 ml-sm-0">
+            <div class="numbers">
+              <small>New Cases</small>
+              <p class="card-category text-info">
+                <b>
+                  {{ world_totals.new_cases }}
+                </b>
+              </p>
+              <small>Active Percentage</small>
+              <p class="card-category text-info">
+                <b>
+                  {% with cases=world_totals.total_cases|slugify  %}
+                  {{ world_totals.new_cases|slugify|div:cases|mul:100|floatformat }}%
+                  {% endwith %}
+                </b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+  <!-- Multiple Bar Charts -->
+
+ <div class="col-md-12">
+      <div class="card">
+          <div class="card-header">
+              <div class="card-title">Top 10 Countries</div>
+          </div>
+          <div class="card-body">
+              <div class="chart-container">
+                  <canvas id="multipleLineChart"></canvas>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+  <!-- Tables -->
   <div class="page-inner">
   <div class="page-header">
     <h4 class="page-title text-center"> Corona Virus Details</h4>
@@ -58,13 +211,99 @@
 {% endblock %}
 
 {% block javascripts %}
-<script>
+  <script>
+    var
+        multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
 
-		$(document).ready(function () {
+    var myMultipleLineChart = new Chart(multipleLineChart, {
+			type: 'line',
+			data: {
+				labels: [
+            {% for top in top20 %}
+                "{{ top.country_name }}",
+            {% endfor %}
+        ],
+				datasets: [{
+					label: "Total Cases",
+					borderColor: "#FFAD46",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#FFAD46",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [
+              {% for top in top20 %}
+                  {{ top.cases|slugify }},
+              {% endfor %}
+          ]
+				},{
+					label: "Total Deaths",
+					borderColor: "#f3545d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#f3545d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [
+              {% for top in top20 %}
+                  {{ top.deaths|slugify }},
+              {% endfor %}
+          ]
+				}, {
+					label: "Total Recover",
+					borderColor: "#55CF38",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#55CF38",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [
+              {% for top in top20 %}
+                  {{ top.total_recovered|slugify }},
+              {% endfor %}
+          ]
+				}]
+			},
+			options : {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'top',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:20,
+					yPadding:20,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
+
+    $(document).ready(function () {
       $('#basic-datatables').DataTable({
           "order": [[ 2, "desc" ]]
-			});
+      });
     })
+
+
 	</script>
 
 {% endblock %}

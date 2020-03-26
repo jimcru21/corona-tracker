@@ -16,7 +16,7 @@ def index(request):
     api_url = '{0}cases_by_country.php'.format(api_url_base)
     response = requests.get(api_url, headers=headers)
     corona = response.json()
-    country = corona['countries_stat']
+    top20 = corona['countries_stat'][:10]
 
     api_url = '{0}worldstat.php'.format(api_url_base)
     response = requests.get(api_url, headers=headers)
@@ -25,6 +25,7 @@ def index(request):
     context = {
         'corona': corona['countries_stat'],
         'world_totals': world_totals,
+        "top20": top20,
     }
     return render(request, 'corona/index.html', context)
 
