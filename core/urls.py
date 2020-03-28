@@ -8,10 +8,11 @@ from django.contrib import admin, sitemaps
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include  # add this
 
-from corona.sitemaps import StaticViewSitemap
+from corona.sitemaps import StaticViewSitemap, CountryStat
 
 sitemaps = {
-    'static': StaticViewSitemap
+    'static': StaticViewSitemap,
+    'country_stat': CountryStat
 }
 
 
