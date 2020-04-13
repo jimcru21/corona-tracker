@@ -1,9 +1,11 @@
 from django.shortcuts import render
 import requests
 import country_converter as coco
+from django.core.cache import cache
 
 # Create your views here.
 from django.template import RequestContext
+from django.views.decorators.cache import cache_page
 
 api_url_base = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/"
 headers = {
@@ -12,6 +14,7 @@ headers = {
 }
 
 
+@cache_page(60 * 15)
 def index(request):
     api_url = '{0}cases_by_country.php'.format(api_url_base)
     response = requests.get(api_url, headers=headers)
