@@ -23,7 +23,7 @@ def index(request):
     world_totals = response.json()
 
     context = {
-        'corona': corona['countries_stat'],
+        'corona': corona['countries_stat'][1:],
         'world_totals': world_totals,
         "top20": top20,
     }

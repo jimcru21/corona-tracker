@@ -6,6 +6,7 @@ COPY manage.py gunicorn-cfg.py requirements.txt .env ./
 COPY app app
 COPY authentication authentication
 COPY core core
+copy corona corona
 
 RUN pip install -r requirements.txt
 
