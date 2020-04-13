@@ -134,9 +134,16 @@ STATICFILES_DIRS = (
 # Activate Django-Heroku.
 # django_heroku.settings(locals())
 
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '172.16.0.5:11211',
+#     }
+# }
+
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '172.16.0.5:11211',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
