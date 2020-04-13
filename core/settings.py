@@ -135,6 +135,6 @@ STATICFILES_DIRS = (
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'ncovcache:11211',
+        'LOCATION': '0.0.0.0:11211',
     }
 }
