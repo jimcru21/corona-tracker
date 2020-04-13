@@ -22,7 +22,6 @@ DEBUG = config('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.nc0v.xyz' 'nc0v.xyz']
 
-
 # Application definition
 
 INSTALLED_APPS = [
