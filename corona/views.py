@@ -14,7 +14,6 @@ headers = {
 }
 
 
-@cache_page(60 * 15)
 def index(request):
     api_url = '{0}cases_by_country.php'.format(api_url_base)
     response = requests.get(api_url, headers=headers)
