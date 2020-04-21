@@ -20,7 +20,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.nc0v.xyz', 'nc0v.xyz']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.nc0v.xyz', 'nc0v.xyz', 'leo-www.a9c227f995.at.d2c.io']
 
 # Application definition
 
