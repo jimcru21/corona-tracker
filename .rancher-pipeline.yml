@@ -1,0 +1,7 @@
+stages:
+- name: Staging
+  steps:
+  - applyYamlConfig:
+      path: ./docker-compose.yml
+timeout: 60
+notification: {}
