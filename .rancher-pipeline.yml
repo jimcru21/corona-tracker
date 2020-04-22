@@ -6,6 +6,6 @@ stages:
       buildContext: .
       tag: django
       pushRemote: true
-      registry: 127.0.0.1:34489
+      registry: index.docker.io
 timeout: 60
 notification: {}
