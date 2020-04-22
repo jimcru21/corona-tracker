@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: Django
+      tag: django
       registry: 127.0.0.1:34489
 timeout: 60
 notification: {}
