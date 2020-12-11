@@ -31,4 +31,4 @@ jobs:
         # Path to build context
         build-context: . # optional, default is .
         # Pull the image before buiding it
-        pull-image: latest # optional, default is false
+        pull-image: false # optional, default is false
