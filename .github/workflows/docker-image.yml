@@ -29,6 +29,6 @@ jobs:
         # Dockerfile name
         dockerfile: Dockerfile # optional, default is Dockerfile
         # Path to build context
-        build-context: ./Dockerfile # optional, default is .
+        build-context: . # optional, default is .
         # Pull the image before buiding it
         pull-image: false # optional, default is false
